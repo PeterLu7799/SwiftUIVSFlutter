@@ -6,9 +6,13 @@
 
 今年的WWDC苹果公布了许多大的更新和技术，这其中有一个令开发者非常兴奋的技术就是发布了SwiftUI。一个declarative UI框架用于构建iOS (iPadOS, macOS, watchOS, tvOS)应用。
 
-为什么说开发者会很兴奋，这是因为苹果也加入了现代且先进的declarative UI编程。苹果的开发者们不用再坐在边上看React Native和Flutter带来的技术能力如：简化代码、提高开发效率的热更新而是也可以使用这些了。Google在今年的I/O‘19大会上发布了Jetpack Compose，一个新的Android declarative UI框架，所以苹果今年宣布SwiftUI正好赶在了这个间隙，引起开发者的共鸣。
+为什么说开发者会很兴奋，这是因为苹果也加入了现代且先进的declarative UI编程。苹果的开发者们不用再坐在边上看React Native或Flutter带来的如下技术能力：
 
-我们见证了Facebook的React开启了持续的declarative UI编程的革命。Flutter正是把我们带入了这场革命并且Flutter的发展速度非常的快，在Stack Overflow，LinkedIn里它的热度都很高。那么SwiftUI的宣布又能说明什么哪？
++ 简化代码
++ 提高开发效率
++ 热更新
+
+Google在今年的I/O‘19大会上也发布了Jetpack Compose，一个新的Android declarative UI框架，可以看出Declarative UI在移动端上的应用越来越多充分说明了它所带来的开发优势。苹果今年宣布SwiftUI正好赶在了这个间隙，也就引起开发者的共鸣。
 
 ## Flutter是什么
 Flutter是谷歌的移动UI框架，可以快速在iOS和Android上构建高质量的原生用户界面。 Flutter可以与现有的代码一起工作。在全世界，Flutter正在被越来越多的开发者和组织使用，并且Flutter是完全免费、开源的。具有以下特点：
@@ -22,9 +26,20 @@ Flutter是谷歌的移动UI框架，可以快速在iOS和Android上构建高质�
 
 ## Declarative UI是什么
 
-我们先来说说什么是declarative UI。众所周知现在的应用程序中写UI的代码是很复杂的一部分工作，在桌面、移动和Web应用中都需要处理下面这些UI相关的工作：响应式、设备旋转、动态字体大小、黑暗模式、不同主题、用户自定义、用户的角色许可和A/B测试等，然后又要配合各种的动画效果，并且最后要让用户和UI交互起来自然、简单和便捷。
+说了很多的declarative UI那具体它什么，它又是怎样工作的哪？众所周知现在的应用程序开发，尤其是UI部分的开发已经变的很复杂，在传统的Objective-C开发的iOS应用中，UI和业务分解不好的UIViewController代码直逼万行甚至几万行，这里大部分是在处理UI展示的数据变化和用户的交互及下面这些UI相关的问题：
 
-在declarative UI之前你要做的是：
++ 事件响应
++ 设备旋转
++ 动态字体大小
++ 黑暗模式
++ 不同主题
++ 用户自定义视图
++ 用户的角色对应视图
++ A/B测试
+
+然后又要添加各种的动画效果来让用户和UI交互起来自然、简单和便捷。所有这些都造成了现在UI开发的复杂性。
+
+在declarative UI之前的”imperative“方式的变成你要做的是：
 
 + 首先通过UIView构建出登录界面
 + 当用户点击登录按钮时
@@ -32,11 +47,11 @@ Flutter是谷歌的移动UI框架，可以快速在iOS和Android上构建高质�
 + 收据回来后，隐藏加载中的View
 + 重定位到主页或是弹出错误对话框
 
-在这种被称为“imperative”的模式中，你根据各种事件去直接更改UI中的各个部分。这种模式的问题是，它看似简单但是在这个界面的业务和状态变的复杂时是很难保证在更新界面时不出现问题。
+在这种imperative命令模式中，你根据各种事件去直接更改UI中的各个部分。这种模式的问题是，它看似简单但是在这个界面的业务和状态变的复杂时是很难保证在更新界面时不出现问题。
 
-作为对比，“declarative”模式中，用户界面声明为一个有数据驱动的函数来展示，这里的数据是这个界面的状态(state)，当状态改变时UI会自动通知这个函数来更新展示。所以上面的登录例子变成：如果有用户显示主页，没有用户显示登录页；如果后台处理显示加载中；如果错误显示错误。
+作为对比的declarative声明模式中，用户界面声明为一个有数据驱动的函数来展示，这里的数据是这个界面的状态(state)，当状态改变时UI会自动通知这个函数来更新展示。所以上面的登录例子变成：如果有用户显示主页，没有用户显示登录页；如果后台处理显示加载中；如果错误显示错误。
 
-看下面的例子，如图我们要改变ViewB的子视图从左到右
+下面我们举例说明，如图我们要改变ViewB的子视图从左图到右图
 
 ![swuftui.png](images/viewAB.png)
 
@@ -52,7 +67,7 @@ Flutter是谷歌的移动UI框架，可以快速在iOS和Android上构建高质�
 + Declarative方法，直接返回声明的新ViewB
 
 	```
-	if (condition) {
+	if (state) {
 		return ViewB(
 			color: yellow,
 			Childrens: [
@@ -69,13 +84,9 @@ Flutter是谷歌的移动UI框架，可以快速在iOS和Android上构建高质�
 	}
 	```
 
-## 两者的对比
+## 对比两者
 
-接下来我们将通过苹果的SwiftUI课程对比一下SwiftUI和Flutter。这个课程用SwiftUI一步步的创建一个叫Landmarks的App，下面是苹果课程的地址：
-
-[Apple SwiftUI示例](https://developer.apple.com/tutorials/swiftui/handling-user-input)
-
-另外网上有开发者用Flutter作了一个高仿的Landmarks，我们这里将使用这个Flutter的Landmarks app做对比。下图是这个app的首页截图对比。
+接下来我们将通过苹果的SwiftUI课程中创建的应用Landmarks来对比一下SwiftUI和Flutter。为什么选择这个课程用的app哪？是因为网上有开发者用Flutter作了一个高仿的Flutter版的Landmarks应用，这样我们在有的地方就可以利用里面的实现代码做比较，这样更直观。下图是这个app的首页截图对比。
 
 ![SwifuUI code](images/flutter_swiftUI.png)
 
@@ -96,7 +107,7 @@ Flutter是谷歌的移动UI框架，可以快速在iOS和Android上构建高质�
 
 	我们在苹果的SwiftUI课程中发现Xcode所带的这个预览功能还是十分强大的，在预览上做修改可以直接同步修改代码，并且这个预览界面还有编程的入口，可以通过代码修改预览行为也可以指定预览Canvas的大小或是直接指定设备，这整个过程都不用编译代码。相比Android Studio没有这方面的功能。我们还会在后面具体说一下预览的功能
 
-### 界面元素
+### UI
 
 + SwiftUI的View
 	
