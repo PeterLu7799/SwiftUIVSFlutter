@@ -63,7 +63,7 @@ declarative模式中首先你要定义界面的描述，这个描述会在不同
 
 + Imperative的传统方法，首先找到ViewB的实例然后在它上面修改
 	
-	```
+	```swift
 	ViewB b = getViewB
 	b.setColor(red)
 	b.clearChildren()
@@ -72,7 +72,7 @@ declarative模式中首先你要定义界面的描述，这个描述会在不同
 	```
 + Declarative方法，直接返回声明的新ViewB
 
-	```
+	```swift
 	if (changed_state) {
 		return ViewB(
 			color: yellow,
@@ -278,7 +278,7 @@ SwiftUI中的导航能力要借助NavigationView和NavigationLink实现，Flutte
 
 SwiftUI
 
-```
+```swift
 var body: some View {
     NavigationView {
         List {
@@ -303,7 +303,7 @@ var body: some View {
 
 Flutter
 
-```
+```dart
 SliverList(
   delegate: SliverChildBuilderDelegate(
     (context, index) {
@@ -346,7 +346,7 @@ SwiftUI和Flutter用上面的方法Navigation Bar都会自带返回按钮。两�
 
 SwiftUI的代码如下
 
-```
+```swift
 struct MapView: UIViewRepresentable {
     var coordinate: CLLocationCoordinate2D
 
@@ -365,7 +365,7 @@ struct MapView: UIViewRepresentable {
 
 Flutter
 
-```
+```dart
 Widget _mapView() {
 return GoogleMap(
   mapType: MapType.normal,
@@ -394,7 +394,7 @@ SwiftUI和Flutter在状态管理的实现上还是不一样的，
 
 SwiftUI
 
-```
+```swift
 struct LandmarkList: View {
     @State var showFavoritesOnly = true
 
@@ -422,7 +422,7 @@ struct LandmarkList: View {
 
 Flutter
 
-```
+```dart
 CupertinoSwitch(
   value: _showFavoritesOnly,
   onChanged: (state) {
@@ -435,7 +435,7 @@ CupertinoSwitch(
 
 CupertinoSwitch是Switch按钮，onChanged方法会在值发生变化时调用，这时调用setState方法给变量_showFavoritesOnly设置新值，界面的build方法就会被调用，我们根据_showFavoritesOnly的值来设置新的数据源，下面的List就会用新的数据源展示列表，代码如下：
 
-```
+```dart
  Widget build(BuildContext context) {
     final landmarks = _showFavoritesOnly ? favoriteLandmarks : allLandmarks;
     ...
