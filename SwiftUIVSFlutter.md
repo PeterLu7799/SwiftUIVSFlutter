@@ -97,7 +97,7 @@ Google在今年的I/O‘19大会上也发布了Jetpack Compose，一个新的And
 
 + XCode
 
-	![XCode](images/xcode1.png)
+	![XCode](images/xcode.png)
 	
 	XCode对SwiftUI的支持是不用说的，从图中可以看出从左向右依次是工程列表、编辑文件和SwiftUI的预览Canvas。
 	
@@ -265,23 +265,181 @@ SliverList(
  
 ```
 
-其中landmarks是数据数组，其中的一条数据记录对应下面JSON。
+其中landmarks是数据数组，其中的每条数据之前的JSON数据。SwiftUI的LandmarkRow和Flutter的LandmarkCell是前面布局中说的每行的UI。
 
-### 导航
-UIKit中的UINavigationController在SwiftUI中是NavigationView
+### 导航即页面跳转能力
+#### 进入新页面
+导航页面跳转在UI开发中是非常重要的，方便的提供页面跳转能力也是一个UI框架好坏的关键。
+SwiftUI中的导航能力要借助NavigationView和NavigationLink实现，Flutter则是靠Route和Navigator。下面看实例代码。
 
+SwiftUI
+
+```
+var body: some View {
+    NavigationView {
+        List {
+            ForEach(userData.landmarks) { landmark in
+                NavigationLink(
+                    destination: LandmarkDetail(landmark: landmark)
+                ) {
+                    LandmarkRow(landmark: landmark)
+                }
+            }
+        }
+        .navigationBarTitle(Text("Landmarks"))
+    }
+}
+```
+
+1. body中直接嵌入NavigationView
+2. NavigationView中包含List
+3. NavigationLink作为每行的元素它包含每行的UI LandmarkRow
+4. NavigationLink的destination参数指明了要打开的新页面LandmarkDetail以及传递的参数
+5. 最后的navigationBarTitle指定Title文案。
+
+Flutter
+
+```
+SliverList(
+  delegate: SliverChildBuilderDelegate(
+    (context, index) {
+      final landmark = landmarks[index];
+      return LandmarkCell(
+        landmark: landmark,
+        onTap: () {
+          Navigator.push(
+            context,
+            Route(
+              builder: (context) => LandmarkDetail(
+                    landmark: landmark,
+                  ),
+            ),
+          );
+        },
+      );
+    },
+    childCount: landmarks.length,
+  ),
+)
+```
+
+1. SliverList中构建每行LandmarkCell
+2. 处理LandmarkCell的onTap点击事件
+3. 用Navigator.push方法进入新页面
+4. Navigator.push的参数是个Route其中定义了新页面名称和传递的参数
+
+SwiftUI的代码很简单直观，不需要处理任何的点击事件。
+
+#### 返回上页
+
+SwiftUI和Flutter用上面的方法Navigation Bar都会自带返回按钮。两者也都可以通过代码返回，这个不在说明。但是SwiftUI还是beta阶段，一些介绍说了它没有Navigation stack的管理，不能像UIKit那样直接Pop到任意页面，相比Flutter的avigator有这个能力。
 
 ### 使用Native功能
 
+还是以Landmarks应用为例在点击首页的列表后会进入下面的详情页，可以看到上面的地图就不再是一般的基本UI元素。在SwiftUI中用的是UIKit的MapKit，Flutter中用的是插件google_maps_flutter。
 
+![landmarks_details_page](images/landmarks_details_page.png)
+
+SwiftUI的代码如下
+
+```
+struct MapView: UIViewRepresentable {
+    var coordinate: CLLocationCoordinate2D
+
+    func makeUIView(context: Context) -> MKMapView {
+        MKMapView(frame: .zero)
+    }
+
+    func updateUIView(_ view: MKMapView, context: Context) {
+        let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        view.setRegion(region, animated: true)
+    }
+}
+```
+这里不再集成与View而是UIViewRepresentable，makeUIView方法创建UIView元素，updateUIView更新view，这里设置地图的坐标。
+
+Flutter
+
+```
+Widget _mapView() {
+return GoogleMap(
+  mapType: MapType.normal,
+  initialCameraPosition: CameraPosition(
+    target: LatLng(landmark.coordinates.latitude, landmark.coordinates.longitude),
+    zoom: 13.70,
+  ),
+  myLocationButtonEnabled: false,
+  onMapCreated: (GoogleMapController controller) {
+    _controller.complete(controller);
+  },
+);
+}
+```
+google_maps_flutter这个插件是基于PlatfPlat-view实现的，在Flutter中实现这样一个插件还是很费时的。所以在对原生功能的使用上SwiftUI必然是非常方便的。
 
 ### 状态管理
+状态管理是指在数据发生变化时更新对应UI。Landmarks应用中首页的Switch按钮过滤标星的行就是用状态触发的界面更新。如下图：
 
-+ SwiftUI
+![landmarks_details_page](images/Landmarks_list_filtered.png)
 
-+ Flutter
+SwiftUI和Flutter在状态管理的实现上还是不一样的，
+
++ SwiftUI的状态管理是通过数据绑定实现的
++ Flutter里是通过数据改变后调用SetState方法实现的
+
+SwiftUI
+
+```
+struct LandmarkList: View {
+    @State var showFavoritesOnly = true
+
+    var body: some View {
+        NavigationView {
+            List {
+                Toggle(isOn: $showFavoritesOnly) {
+                    Text("Favorites only")
+                }
+
+                ForEach(landmarkData) { landmark in
+                    if !self.showFavoritesOnly || landmark.isFavorite {
+                        NavigationLink(destination: LandmarkDetail(landmark: landmark)) {
+                            LandmarkRow(landmark: landmark)
+                        }
+                    }
+                }
+            }
+            .navigationBarTitle(Text("Landmarks"))
+        }
+    }
+}
+```
+通过在属性showFavoritesOnly前加@State修饰符来表明这个数据是有状态的，Toggle是哪个Switch按钮它的值通过$符绑定在了showFavoritesOnly属性上，当点击按钮值变化时body会自动再次执行，ForEach根据self.showFavoritesOnly的值来过滤列表。
+
+Flutter
+
+```
+CupertinoSwitch(
+  value: _showFavoritesOnly,
+  onChanged: (state) {
+    setState(() {
+      _showFavoritesOnly = state;
+    });
+  },
+)
+```
+
+CupertinoSwitch是Switch按钮，onChanged方法会在值发生变化时调用，这时调用setState方法给变量_showFavoritesOnly设置新值，界面的build方法就会被调用，我们根据_showFavoritesOnly的值来设置新的数据源，下面的List就会用新的数据源展示列表，代码如下：
+
+```
+ Widget build(BuildContext context) {
+    final landmarks = _showFavoritesOnly ? favoriteLandmarks : allLandmarks;
+    ...
+}
+```
 
 ### 总结
+上面只是从几个方面对比了简单对比了一下SwiftUI和Flutter的一些
 
 + 代码复杂度
 	单就 UI 框架而言， 我个人认为 Swift 的使用感受要明显好于 Dart。
