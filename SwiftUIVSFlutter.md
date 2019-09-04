@@ -1,4 +1,4 @@
-# 轻松对比SwiftUI 和 Flutter
+# SwiftUI 和 Flutter
 
 ## SwiftUI是什么
 
@@ -9,6 +9,7 @@
 为什么说开发者会很兴奋，这是因为苹果也加入了现代且先进的declarative UI编程。苹果的开发者们不用再坐在边上看React Native或Flutter带来的如下技术能力：
 
 + 简化代码
++ 声明语法
 + 提高开发效率
 + 热更新
 
@@ -91,7 +92,7 @@ Flutter是谷歌的移动UI框架，可以快速在iOS和Android上构建高质�
 ![SwifuUI code](images/flutter_swiftUI.png)
 
 
-### IDE比较
+### 开发环境
 
 + XCode
 
@@ -131,30 +132,76 @@ SwiftUI的Stacks对应Flutter的Flex widgets都是在一维上显示这些子内
 
 SwiftUI | Flutter | 描述 
 ---- | ---- | ----
-HStack | Row | 行buju
+HStack | Row | 行布局
 VStack | Column | 列布局
 ZStack | Stack | 重叠布局
 
 如果要实现下面一个Hello world在屏幕中竖向排列居中显示代码如下：
 
-Hello<br/>
-World
-
 SwiftUI
 
-![SwifuUI code](images/swiftUI_code_2.png)
+```swift
+struct SwiftUIView: View {
+    var body: some View {
+        VStack (alignment: .center, spacing: 0) {
+            Text("Hello")
+            Text("World!")
+        }
+    }
+}
+```
 
 Flutter
 
-![SwifuUI code](images/flutter_code_3.png)
+```dart
+Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text("Hello"),
+          Text("World"),
+        ],
+      ),
+    );
+  }
+```
 
-从代码可以看出由于SwiftUI没有return语句和children参数而看齐单有简单点。但是Flutter对布局的命名Row、Column和Stack看起来更有感觉。
+运行结果在屏幕上显示竖排的<br/>
+Hello<br/>
+World
+
+从代码可以看出由于SwiftUI没有return语句和children参数看起来更简洁一点。但是Flutter对布局的命名Row、Column和Stack看起来更直观。
 
 ### 列表
 
 UIKit的Table views在SwiftUI中是List。你可以把所有的子内容放在List里。这对比于UIKit的UITableView去实现多个代理方法是极大的进步。
 
 在Flutter上你可以有多个选择，你可以用ListView来显示多行内容或是用SingleChildScrollView来显示一屏可以滚动的内容。更高级的可以用CustomScrollView它的子视图可以用一系列的Sliver widgets。
+
+在前面说的那个Landmarks应用中，首页就是一个列表，这里SwiftUI
+
+SwiftUI
+
+```swift
+List {
+    Toggle(isOn: $userData.showFavoritesOnly) {
+        Text("Show Favorites Only")
+    }
+    
+    ForEach(userData.landmarks) { landmark in
+        if !self.userData.showFavoritesOnly || landmark.isFavorite {
+            NavigationLink(
+                destination: LandmarkDetail(landmark: landmark)
+                    .environmentObject(self.userData)
+            ) {
+                LandmarkRow(landmark: landmark)
+            }
+        }
+    }
+}
+```
+
 
 ### 导航
 
@@ -173,6 +220,8 @@ UIKit的Table views在SwiftUI中是List。你可以把所有的子内容放在Li
 ### 总结
 
 + 代码复杂度
+	单就 UI 框架而言， 我个人认为 Swift 的使用感受要明显好于 Dart。
+
 
 + 兼容性
 
@@ -184,7 +233,8 @@ https://developer.apple.com/tutorials/swiftui
 苹果SwiftUI文档<br/>
 https://developer.apple.com/documentation/swiftui
 
-Building the SwiftUI Sample App in Flutter
+Building the SwiftUI Sample App in Flutter<br/>
 https://github.com/VGVentures/flutter_landmarks
 
-
+SwiftUI or Flutter? <br/>
+https://juejin.im/post/5d05b45bf265da1bcc193ff4
