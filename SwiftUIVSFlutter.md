@@ -4,19 +4,20 @@
 
 ![swuftui.png](images/swuftui.png)
 
-今年的WWDC苹果公布了许多大的更新和技术，这其中有一个令开发者非常兴奋的技术就是发布了SwiftUI。一个declarative UI框架用于构建iOS (iPadOS, macOS, watchOS, tvOS)应用。
+WWDC‘19苹果公布了许多大的更新和技术，这其中有一个令开发者非常兴奋的技术就是发布了SwiftUI。一个declarative UI框架用于构建iOS, iPadOS, macOS, watchOS, tvOS下的跨苹果平台的应用。理论上SwiftUI的一套声明语法代码可以在这些平台上运行。
 
-为什么说开发者会很兴奋，这是因为苹果也加入了现代且先进的declarative UI编程。苹果的开发者们不用再坐在边上看React Native或Flutter带来的如下技术能力：
+为什么说开发者会很兴奋，这是因为苹果也加入了现代且先进的declarative UI编程。苹果的开发者们不用再坐在边上看React Native或Flutter带来的如下技术能力而无法享受了，
 
 + 简化代码
 + 声明语法
 + 提高开发效率
 + 热更新
++ 跨平台
 
-Google在今年的I/O‘19大会上也发布了Jetpack Compose，一个新的Android declarative UI框架，可以看出Declarative UI在移动端上的应用越来越多充分说明了它所带来的开发优势。苹果今年宣布SwiftUI正好赶在了这个间隙，也就引起开发者的共鸣。
+Google在今年的I/O‘19大会上也发布了Jetpack Compose，一个新的Android declarative UI框架，可以看出declarative UI在移动端上的应用越来越多充分说明了它所带来的开发优势。苹果今年宣布SwiftUI正好赶在了这个间隙，也就引起开发者的共鸣。
 
 ## Flutter是什么
-Flutter是谷歌的移动UI框架，可以快速在iOS和Android上构建高质量的原生用户界面。 Flutter可以与现有的代码一起工作。在全世界，Flutter正在被越来越多的开发者和组织使用，并且Flutter是完全免费、开源的。具有以下特点：
+这篇文章的另一主角Flutter是什么哪？它应该不是什么新东西了，谷歌在两年前已经给出了它的beta版，现在最新已经是稳定版1.7了。它是谷歌移动端的UI开发框架，可以快速在iOS和Android上构建高质量的原生用户界面。Flutter可以与现有的原生代码一起工作，它正在被越来越多的开发者和组织使用，并且Flutter是完全免费、开源的。具有以下特点：
 
 + Declaraive UI
 + 快速开发
@@ -139,7 +140,7 @@ Flutter是谷歌的移动UI框架，可以快速在iOS和Android上构建高质�
 
 ### 布局
 
-SwiftUI的Stacks对应Flutter的Flex widgets都是在一维上显示这些子内容。下表是他们对应关系
+SwiftUI的Stacks对应Flutter的Flex widgets，Row、Column和Stack都是在一维上显示子视图。下表是他们对应关系
 
 SwiftUI | Flutter | 描述 
 ---- | ---- | ----
@@ -147,17 +148,26 @@ HStack | Row | 行布局
 VStack | Column | 列布局
 ZStack | Stack | 重叠布局
 
-如果要实现下面一个Hello world在屏幕中竖向排列居中显示代码如下：
+我们这里看一下前面说的Landmarks应用，它首页是个列表，其中每行是个水平布局，如下图：
+
+![Landmarks cell](images/Landmarks_cell.png)
+
+SwiftUI直接使用HStack然后里面嵌入基本UI元素，Image、Text和Spacer。Flutter则是使用Row布局，它的children中也是一些基本UI Widgets。下面是具体代码
 
 SwiftUI
 
 ```swift
-struct SwiftUIView: View {
-    var body: some View {
-        VStack (alignment: .center, spacing: 0) {
-            Text("Hello")
-            Text("World!")
-        }
+HStack {
+    landmark.image
+        .resizable()
+        .frame(width: 50, height: 50)
+    Text(verbatim: landmark.name)
+    Spacer()
+
+    if landmark.isFavorite {
+        Image(systemName: "star.fill")
+            .imageScale(.medium)
+            .foregroundColor(.yellow)
     }
 }
 ```
@@ -165,24 +175,53 @@ struct SwiftUIView: View {
 Flutter
 
 ```dart
-Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text("Hello"),
-          Text("World"),
-        ],
-      ),
-    );
-  }
+Row(
+  children: <Widget>[
+    Image.asset(
+      'assets/${landmark.imageName}.jpg',
+      width: 50.0
+    ),
+    SizedBox(
+      width: 16,
+    ),
+    Text(
+      landmark.name,
+      style: TextStyle(fontSize: 16),
+    ),
+    Expanded(
+      child: Container(),
+    ),
+    landmark.isFavorite ? StarButton(isFavorite: landmark.isFavorite) : Container(),
+    Icon(
+      Icons.arrow_forward_ios,
+      size: 15.0,
+      color: const Color(0xFFD3D3D3),
+    ),
+  ]
+)
 ```
 
-运行结果在屏幕上显示竖排的<br/>
-Hello<br/>
-World
+代码中的landmark是数据模型对象，对应下面的JSON数据
 
-从代码可以看出由于SwiftUI没有return语句和children参数看起来更简洁一点。但是Flutter对布局的命名Row、Column和Stack看起来更直观。
+```json
+{
+    "name": "Turtle Rock",
+    "category": "Rivers",
+    "city": "Twentynine Palms",
+    "state": "California",
+    "id": 1001,
+    "isFeatured": true,
+    "isFavorite": true,
+    "park": "Joshua Tree National Park",
+    "coordinates": {
+        "longitude": -116.166868,
+        "latitude": 34.011286
+    },
+    "imageName": "turtlerock"
+}
+```
+
+可以看出由于SwiftUI在间距控制上有默认值所以少了一些间距的控制代码看起来更简洁一点。但是Flutter对布局Widgets的命名如：Row、Column和Stack看起来更直观。
 
 ### 列表
 
@@ -190,17 +229,13 @@ UIKit的Table views在SwiftUI中是List。你可以把所有的子内容放在Li
 
 在Flutter上你可以有多个选择，你可以用ListView来显示多行内容或是用SingleChildScrollView来显示一屏可以滚动的内容。更高级的可以用CustomScrollView它的子视图可以用一系列的Sliver widgets。
 
-在前面说的那个Landmarks应用中，首页就是一个列表，这里SwiftUI
+在前面说的Landmarks应用中，首页就是一个列表。SwiftUI使用ForEach来创建这个列表，Flutter列表用了SliverList。下面是两者的代码：
 
 SwiftUI
 
 ```swift
 List {
-    Toggle(isOn: $userData.showFavoritesOnly) {
-        Text("Show Favorites Only")
-    }
-    
-    ForEach(userData.landmarks) { landmark in
+    ForEach(landmarks) { landmark in
         if !self.userData.showFavoritesOnly || landmark.isFavorite {
             NavigationLink(
                 destination: LandmarkDetail(landmark: landmark)
@@ -213,12 +248,30 @@ List {
 }
 ```
 
+Flutter
+
+```dart
+SliverList(
+  delegate: SliverChildBuilderDelegate(
+    (context, index) {
+      final landmark = landmarks[index];
+      return LandmarkCell(
+        landmark: landmark,
+      );
+    },
+    childCount: landmarks.length,
+  ),
+),
+ 
+```
+
+其中landmarks是数据数组，其中的一条数据记录对应下面JSON。
 
 ### 导航
+UIKit中的UINavigationController在SwiftUI中是NavigationView
 
 
-
-### 使用Native元素
+### 使用Native功能
 
 
 
