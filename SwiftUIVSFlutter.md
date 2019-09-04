@@ -120,9 +120,20 @@ Flutter是谷歌的移动UI框架，可以快速在iOS和Android上构建高质�
 	
 + Flutter的Widget
 
-	类似的Flutter的UI元素都继承与Widget类，如下代码创建一个无状态的widget在屏幕中间输出Hello World!。它继承与StatelessWidget，StatelessWidget又继承与Widget。这里的build方法是必须实现且返回UI内容的。
+	类似的Flutter的UI元素都继承与Widget类，如下代码创建一个无状态的widget在屏幕中间输出Hello World。它继承与StatelessWidget，StatelessWidget又继承与Widget。这里的build方法是必须实现且返回UI内容的。
 
-	![Flutter code 2](images/flutter_code_2.png)
+	```dart
+	import 'package:flutter/material.dart';
+
+	class ContentView extends StatelessWidget {
+	  @override
+	  Widget build(BuildContext context) {
+	    return Center(
+	      child: Text("Hello World"),
+	    );
+	  }
+	}
+	```
 
 	可以看到对于declarative UI的SwiftUI和Flutter这里创建一个自定义的UI基本一样，只是Flutter的stateful和stateless在SwiftUI中是没有的。另外Flutter没有实时预览所有也没有预览部分的代码。
 
