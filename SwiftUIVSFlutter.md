@@ -6,7 +6,7 @@
 
 ![swuftui.png](http://p7.qhimg.com/t010a0bba1647f25c8d.png)
 
-另外为什么说开发者会很兴奋，这是因为苹果也加入了现代且先进的declarative UI编程。苹果的开发者们不用再坐在边上看React Native或Flutter带来的如下技术而无法享用了，
+另外为什么说开发者会很兴奋，这是因为苹果也加入了现代且先进的declarative UI编程。苹果的开发者们不用再坐在边上看React Native或Flutter带来的如下特性而无法享用了，
 
 + 简化代码
 + 声明语法
@@ -99,7 +99,7 @@ declarative模式中首先你要定义界面的描述，这个描述会在不同
 
 	![Android Studio](http://p3.qhimg.com/t01843d52914c922f93.png)
 
-	左向右依次是工程列表、代码编辑器和Flutter的布局大纲。另外Visual Stuio Code也可以用于Flutter的开发在安装完Flutter的扩展后和Audroid Studio的功能基本一样，只是比Android Studio要轻量级一些。
+	左向右依次是工程列表、代码编辑器和Flutter的布局大纲。另外Visual Stuio Code也可以用于Flutter的开发，在安装完Flutter的扩展后和Audroid Studio的功能基本一样，只是比Android Studio要轻量级一些。
 
 	我们在苹果的SwiftUI课程中发现Xcode所带的这个预览功能还是十分强大的，在预览上做修改可以直接同步修改代码，并且这个预览界面还有编程的入口，可以通过代码修改预览行为也可以指定预览Canvas的大小或是直接指定设备，这整个过程都不用编译代码。相比Android Studio没有这方面的功能。
 
@@ -107,7 +107,7 @@ declarative模式中首先你要定义界面的描述，这个描述会在不同
 
 + SwiftUI - View
 	
-	View是一个Protocal，SwiftUI中的自定义视图都要遵从与这个协议且必须实现body属性来提供自定义视图。如下图所示代码会在屏幕中间显示文案Hello World!。这里的contenView继承与View接着实现了body属性。另外contenView_Previews结构是用于预览的代码，这里直接创建ContentView，可以直接在右边的预览中看到效果。
+	View是一个Protocol，SwiftUI中的自定义视图都要遵从与这个协议且必须实现body属性来提供自定义视图。如下图所示代码会在屏幕中间显示文案Hello World!。这里的contenView继承于View接着实现了body属性。另外contenView_Previews结构是用于预览的代码，这里直接创建ContentView，可以直接在右边的预览中看到效果。
 
 	![SwifuUI code](http://p0.qhimg.com/t0192d18c723d3fb6d4.png)
 	
@@ -115,7 +115,7 @@ declarative模式中首先你要定义界面的描述，这个描述会在不同
 	
 + Flutter - Widget
 
-	Flutter的UI元素都继承与Widget类，如下代码创建一个无状态的widget在屏幕中间输出Hello World!。它继承与StatelessWidget，StatelessWidget又继承与Widget。这里的build方法是必须实现且返回UI内容的。
+	Flutter的UI元素都继承于Widget类，如下代码创建一个无状态的widget在屏幕中间输出Hello World!。它继承于StatelessWidget，StatelessWidget又继承于Widget。这里的build方法是必须实现且返回UI内容的。
 
 	```dart
 	import 'package:flutter/material.dart';
@@ -130,7 +130,7 @@ declarative模式中首先你要定义界面的描述，这个描述会在不同
 	}
 	```
 
-	可以看到对于declarative UI的SwiftUI和Flutter这里创建一个自定义的UI基本一样，只是Flutter的stateful和stateless在SwiftUI中是没有的。另外Flutter没有实时预览所有也没有预览部分的代码。
+	可以看到对于declarative UI的SwiftUI和Flutter这里创建一个自定义的UI基本一样，只是Flutter的stateful和stateless在SwiftUI中是没有的。另外Flutter没有实时预览所以也没有预览部分的代码。
 
 ### 布局
 
@@ -224,7 +224,7 @@ Row(
 
 UIKit的TableView在SwiftUI中是List。你可以把所有的子内容放在List里。这对比于UITableView去实现多个代理方法是极大的进步。
 
-在Flutter上你可以有多个选择，你可以用ListView来显示多行内容或是用SingleChildScrollView来显示一屏可以滚动的内容。更高级的可以控制导航栏效果的可以用CustomScrollView它的子视图需要用一系列的Sliver widgets。
+在Flutter上你可以有多个选择，你可以用ListView来显示多行内容或是用SingleChildScrollView来显示一屏可以滚动的内容。更高级的可以控制导航栏效果的可以用CustomScrollView，它的子视图需要用一系列的Sliver widgets。
 
 在前面说的Landmarks应用中，首页就是一个列表。SwiftUI使用ForEach来创建这个列表的元素，Flutter列表用了SliverList。下面是两者的代码：
 
@@ -348,7 +348,7 @@ struct MapView: UIViewRepresentable {
     }
 }
 ```
-这里不再继承与View而是UIViewRepresentable，当然UIViewRepresentable还继承与View，makeUIView方法创建UIView元素，updateUIView更新view，这里设置地图的坐标。
+这里不再继承于View而是UIViewRepresentable，当然UIViewRepresentable还继承于View，makeUIView方法创建UIView元素，updateUIView更新view，这里设置地图的坐标。
 
 Flutter
 
