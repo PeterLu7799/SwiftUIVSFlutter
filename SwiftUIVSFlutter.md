@@ -323,7 +323,7 @@ SwiftUI的代码很简单直观，不需要处理点击事件。
 
 #### 返回上页
 
-SwiftUI和Flutter用上面的方法导航栏都会自带返回按钮。两者也都可以通过代码返回，这个不在说明。但是SwiftUI还是beta阶段，一些介绍说了它没有Navigation stack的管理，不能像UIKit那样直接Pop到任意页面，相比Flutter的Navigator有这个能力。
+SwiftUI和Flutter用上面的方法导航栏都会自带返回按钮。两者也都可以通过代码返回，这个不再说明。但是SwiftUI还是beta阶段，一些介绍说了它没有Navigation stack的管理，不能像UIKit那样直接Pop到任意页面，相比Flutter的Navigator有这个能力。
 
 ### 使用Native功能
 
