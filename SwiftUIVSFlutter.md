@@ -1,4 +1,4 @@
-# 对比SwiftUI 和 Flutter开发
+# SwiftUI 和 Flutter开发对比
 
 ## SwiftUI是什么
 
