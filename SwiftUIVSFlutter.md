@@ -2,7 +2,7 @@
 
 ## SwiftUI是什么
 
-![swuftui.png](images/swuftui.png)
+![swuftui.png](http://p7.qhimg.com/t010a0bba1647f25c8d.png)
 
 WWDC‘19苹果公布了许多大的更新和新技术，这其中有一个令开发者非常兴奋的技术就是发布了SwiftUI。一个declarative UI框架用于构建iOS, iPadOS, macOS, watchOS, tvOS下的跨“苹果”平台的应用。理论上SwiftUI的一套declarative UI代码可以在这些平台上运行。
 
@@ -59,7 +59,7 @@ declarative模式中首先你要定义界面的描述，这个描述会在不同
 
 下面再举个例子说明，如图我们要改变ViewB的子视图，从左图到右图：
 
-![swuftui.png](images/viewAB.png)
+![swuftui.png](http://p0.qhimg.com/t01d2edbda3eb3c0cad.png)
 
 + Imperative的传统方法，首先找到ViewB的实例然后在它上面修改
 	
@@ -94,20 +94,20 @@ declarative模式中首先你要定义界面的描述，这个描述会在不同
 
 接下来我们将通过苹果的SwiftUI课程中创建的应用Landmarks来对比一下SwiftUI和Flutter。为什么选择这个课程用的app哪？是因为网上有开发者用Flutter作了一个高仿的Flutter版的Landmarks应用，这样我们在有的地方就可以利用里面的实现代码做比较，这样更直观。下图是这个app的首页截图对比。
 
-![SwifuUI code](images/flutter_swiftUI.png)
+![SwifuUI code](http://p8.qhimg.com/t013528d46859e68183.png)
 
 
 ### 开发环境
 
 + XCode
 
-	![XCode](images/xcode.png)
+	![XCode](http://p8.qhimg.com/t01a1f7a11ecd606eec.png)
 	
 	XCode对SwiftUI的支持是不用说的，从图中可以看出从左向右依次是工程列表、编辑文件和SwiftUI的预览Canvas。
 	
 + Android Studio 
 
-	![Android Studio](images/AndroidStudio1.png)
+	![Android Studio](http://p3.qhimg.com/t01843d52914c922f93.png)
 
 	左向右依次是工程列表、代码编辑器和Flutter的布局大纲。另外Visual Stuio Code也可以用于Flutter的开发在安装完Flutter的扩展后和Audroid Studio的功能基本一样，只是比Android Studio要轻量级一些。
 
@@ -119,7 +119,7 @@ declarative模式中首先你要定义界面的描述，这个描述会在不同
 	
 	View是一个Protocal，SwiftUI中的自定义视图都要遵从与这个协议且必须实现body属性来提供你自定义视图的内容和行为。如下图所示代码会在屏幕中间显示文案Hello World!。这里的contenView继承与View接着实现了body属性。另外contenView_Previews结构是用于预览的代码，这里直接创建ContentView，可以直接在右边的预览中看到效果。
 
-	![SwifuUI code](images/xcode_screenshot_1.png)
+	![SwifuUI code](http://p0.qhimg.com/t0192d18c723d3fb6d4.png)
 	
 	View还定义了一些操作如：剪切、阴影、描边等。
 	
@@ -154,7 +154,7 @@ ZStack | Stack | 重叠布局
 
 我们这里看一下前面说的Landmarks应用，它首页是个列表，其中每行是个水平布局，如下图：
 
-![Landmarks cell](images/Landmarks_cell.png)
+![Landmarks cell](http://p9.qhimg.com/t019494405fe2692bc2.png)
 
 SwiftUI直接使用HStack然后里面嵌入基本UI元素，Image、Text和Spacer。Flutter则是使用Row布局，它的children中也是一些基本UI Widgets。下面是具体代码
 
@@ -342,7 +342,7 @@ SwiftUI和Flutter用上面的方法Navigation Bar都会自带返回按钮。两�
 
 还是以Landmarks应用为例在点击首页的列表后会进入下面的详情页，可以看到上面的地图就不再是一般的基本UI元素。在SwiftUI中用的是UIKit的MapKit，Flutter中用的是插件google_maps_flutter。
 
-![landmarks_details_page](images/landmarks_details_page.png)
+![landmarks_details_page](http://p0.qhimg.com/t01f54292fd63715ee3.png)
 
 SwiftUI的代码如下
 
@@ -385,7 +385,7 @@ google_maps_flutter这个插件是基于PlatfPlat-view实现的，在Flutter中�
 ### 状态管理
 状态管理是指在数据发生变化时更新对应UI。Landmarks应用中首页的Switch按钮过滤标星的行就是用状态触发的界面更新。如下图：
 
-![landmarks_details_page](images/Landmarks_list_filtered.png)
+![landmarks_details_page](http://p4.qhimg.com/t01a97a378524ffe1ca.png)
 
 SwiftUI和Flutter在状态管理的实现上还是不一样的，
 
