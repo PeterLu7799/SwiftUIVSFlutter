@@ -367,7 +367,7 @@ return GoogleMap(
 );
 }
 ```
-这里看Flutter使用google_maps_flutter插件也不是很复杂，但是这个插件是基于Flutter的PlatfPlat-view实现的，在Flutter中实现这样一个插件还是很费时的，Flutter的插件一般都是支持iOS和Android的。在对原生功能的使用上苹果的SwiftUI在苹果平台上必然是非常方便的。
+这里看Flutter使用google_maps_flutter插件也不是很复杂，但是这个插件是基于Flutter的Platform-view实现的，在Flutter中实现这样一个插件还是很费时的，Flutter的插件一般都是支持iOS和Android的。在对原生功能的使用上苹果的SwiftUI在苹果平台上必然是非常方便的。
 
 ### 状态管理
 状态管理是指在数据发生变化时更新UI。Landmarks应用中首页的Switch按钮过滤标星的行就是用状态触发更新界面。如下图：
