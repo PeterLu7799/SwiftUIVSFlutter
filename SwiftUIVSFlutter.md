@@ -83,20 +83,19 @@ declarative模式中首先你要定义界面的描述，这个描述会在不同
 
 ## 对比两者
 
-接下来我们将通过苹果的SwiftUI课程中创建的应用Landmarks来对比一下SwiftUI和Flutter。为什么选择这个课程用的app哪？是因为网上有开发者用Flutter作了一个高仿的Flutter版的Landmarks应用，这样我们在有的地方就可以利用里面的实现代码做比较，这样更直观。下图是这个app的首页截图对比。
+接下来我们将通过苹果SwiftUI课程中创建的App Landmarks来对比一下SwiftUI和Flutter开发。选择这个课程的App是因为有开发者用Flutter作了一个一样的Landmarks应用，这样我们在有的地方就可以利用里面的代码做更直观的比较，下图是这个App的首页截图对比
 
 ![SwifuUI code](http://p8.qhimg.com/t013528d46859e68183.png)
 
-
 ### 开发环境
 
-+ XCode
++ SwiftUI - XCode
 
 	![XCode](http://p8.qhimg.com/t01a1f7a11ecd606eec.png)
 	
 	XCode对SwiftUI的支持是不用说的，从图中可以看出从左向右依次是工程列表、编辑文件和SwiftUI的预览Canvas。
 	
-+ Android Studio 
++ Flutter - Android Studio / Visual Stuio Code
 
 	![Android Studio](http://p3.qhimg.com/t01843d52914c922f93.png)
 
