@@ -218,7 +218,7 @@ Row(
 }
 ```
 
-可以看出由于SwiftUI在间距控制上有默认值所以少了一些间距的控制代码看起来更简洁一点。但是Flutter对布局Widgets的命名如：Row、Column和Stack看起来更直观。
+可以看出由于SwiftUI在间距控制上有默认值所以少了一些间距的控制代码看起来更简洁一点。但是Flutter对布局Widgets的命名如：Row、Column和Stack看起来更直观。当然布局的元素还有很多就不再对比了。
 
 ### 列表
 
