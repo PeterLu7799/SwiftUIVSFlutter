@@ -1,10 +1,10 @@
-# 对比SwiftUI 和 Flutter
+# 对比SwiftUI 和 Flutter开发
 
 ## SwiftUI是什么
 
-![swuftui.png](http://p7.qhimg.com/t010a0bba1647f25c8d.png)
+苹果WWDC‘19有许多大的更新并且发布了新技术，其中有一个令开发者非常兴奋的新技术就是发布了SwiftUI。一个declarative UI框架用于构建iOS, iPadOS, macOS, watchOS, tvOS下的“跨”苹果平台的应用，理论上SwiftUI的一套declarative UI代码可以在这些平台上运行。
 
-WWDC‘19苹果有许多大的更新并发布了一些新技术，其中有一个令开发者非常兴奋的新技术就是发布了SwiftUI。一个declarative UI框架用于构建iOS, iPadOS, macOS, watchOS, tvOS下的“跨”苹果平台的应用，理论上SwiftUI的一套declarative UI代码可以在这些平台上运行。
+![swuftui.png](http://p7.qhimg.com/t010a0bba1647f25c8d.png)
 
 另外为什么说开发者会很兴奋，这是因为苹果也加入了现代且先进的declarative UI编程。苹果的开发者们不用再坐在边上看React Native或Flutter带来的如下技术而无法享用了，
 
@@ -17,41 +17,42 @@ WWDC‘19苹果有许多大的更新并发布了一些新技术，其中有一�
 Google在今年的I/O‘19大会上也发布了Jetpack Compose，一个新的Android declarative UI框架，可以看出declarative UI在移动端上的应用越来越多充分说明了它所带来的开发优势。苹果今年宣布SwiftUI正好赶在了这个间隙，也就引起开发者的共鸣。
 
 ## Flutter是什么
-Flutter应该不是新技术了，谷歌在两年前已经给出了它的beta版，现在的稳定版也已经发了几个版本了。它是UI框架，可以快速在iOS和Android上构建高质量的原生性能的用户界面。Flutter可以与现有的代码一起工作，它正在被越来越多的开发者和组织使用，并且Flutter是完全免费、开源的。特点如下：
+Flutter应该不是新技术了，谷歌在两年前已经给出了它的beta版，现在稳定版也已经发了几个版本了。它是UI框架，可以快速在iOS和Android上构建高质量的原生性能的用户界面。Flutter可以与现有的代码一起工作，它正在被越来越多的开发者和组织使用，并且Flutter是完全免费、开源的。特点如下：
 
 + Declaraive UI
++ 跨平台
 + 快速开发
 + 原生的性能
-+ 富有表现力，漂亮的用户界面
++ 多种多样的Widget，目前官方Widget数量已经有150+
 + 统一的应用开发体验
 + 访问本地功能和大量的PlugIn支持
 
 ## Declarative UI是什么
 
-说了很多的declarative UI那具体它什么，众所周知现在的应用程序开发，尤其是UI部分的开发已经变的很复杂。传统的Objective-C开发的iOS应用中，UI和业务分解不好的UIViewController代码直逼万行甚至更多，这里大部分代码是在处理数据变化引起的UI变化和用户的交互及下面这些问题：
+说了很多的declarative UI那具体它什么，众所周知现在的应用程序开发，尤其是UI部分的开发已经变的很复杂。传统的Objective-C开发的iOS应用，UI和业务分解不好的UIViewController代码直逼万行甚至更多，这里大部分代码是在处理数据变化引起的UI变化和用户的交互及下面这些问题：
 
-+ 用户和控件事件响应
-+ 设备相应，旋转、陀螺仪等
++ 控件事件响应
++ 设备响应，旋转、陀螺仪等
 + 动态字体大小
 + 不同主题
 + 用户自定义视图、布局
 + A/B测试等
 
-然后又要加各种的动效让用户和UI交互起来自然、简单和便捷。所有这些都造成了现在UI开发的复杂性。上面这些都是通过imperative方式来实现的，在这种方式下一个登录可以是如下的开发过程：
+然后又要加各种的动效让用户和UI交互起来自然、简单和便捷。上面这些都是一个叫imperative方式来实现的，在这种方式下一个登录可以是如下过程：
 
-+ 首先构建出登录界面
++ 首先构建出整个登录界面
 + 当用户点击登录按钮
-+ 你会显示一个加载中的视图，接着后台请求数据
-+ 数据回来后，隐藏加载中
++ 显示一个加载中的视图，接着后台请求数据
++ 数据返回，隐藏加载中
 + 根据数据结果要么跳转到主页要么弹出登录错误框
 
-declarative模式中首先你要定义界面的描述，这个描述会在不同的平台上用那个平台对应的UI控件展示出来。界面的数据和事件等都是这个界面的状态，描述中绑定状态，在状态改变时更新界面。比如用户登录一个状态，如果登录了显示主页否则显示登录页；用户点击登录按钮是个状态，点击一个状态改变了，这时去请求接口显示加载中等。
+declarative模式中首先你要定义界面的描述，这个描述会在不同的平台上用那个平台对应的UI控件展示出来。界面的数据和事件等都可以看做是这个界面的状态，描述中绑定这些状态，在状态改变时更新界面。比如用户点击登录按钮是个状态，点击一下状态就改变；用户登录是一个状态，如果登录了显示主页否则显示登录页。
 
-下面再举个例子，如图我们要改变ViewB的子视图，产出c1和c2，添加c3：
+下面再举个例子，如图我们要改变ViewB的子视图，删除c1和c2，添加c3且改变背景色
 
 ![swuftui.png](http://p0.qhimg.com/t01d2edbda3eb3c0cad.png)
 
-+ Imperative的传统方法，首先找到ViewB的实例然后在它上面修改
++ Imperative方法，首先找到ViewB的实例然后在它上面修改
 	
 	```swift
 	ViewB b = getViewB
@@ -65,17 +66,17 @@ declarative模式中首先你要定义界面的描述，这个描述会在不同
 	```swift
 	if (changed_state) {
 		return ViewB(
+			color: red,
+			child: ViewC(...),
+		)
+	}
+	else {
+		return ViewB(
 			color: yellow,
 			Childrens: [
 				ViewC1,
 				ViewC2
 			]
-		)
-	}
-	else {
-		return ViewB(
-			color: red,
-			child: ViewC(...),
 		)
 	}
 	```
