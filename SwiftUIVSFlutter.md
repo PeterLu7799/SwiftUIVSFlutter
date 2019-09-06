@@ -329,7 +329,7 @@ SwiftUI和Flutter用上面的方法导航栏都会自带返回按钮。两者也
 
 还是以Landmarks应用为例在点击首页的列表后会进入下面的详情页，可以看到页面上面的地图不再是基本UI元素。在SwiftUI中用的是UIKit的MapKit，Flutter中用的是插件google_maps_flutter。
 
-![landmarks_details_page](http://p0.qhimg.com/t01f54292fd63715ee3.png)
+![landmarks_details_page](http://p0.qhimg.com/t01e921f68ab5c67052.png)
 
 SwiftUI使用MapKit的代码如下：
 
